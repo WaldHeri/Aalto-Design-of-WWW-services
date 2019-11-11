@@ -43,3 +43,34 @@ function get_footer() {
   </div></body></html>
   <?php
 }
+
+function check_login() {
+  if (isset($_COOKIE['logged_in']) && $_COOKIE['logged_in'] === md5('asdasd')) return;
+
+  $warning = null;
+
+  if (isset($_POST['email']) && isset($_POST['password'])) {
+    if ($_POST['email'] === 'demo@demo.fi' && $_POST['password'] === '123') {
+      setcookie('logged_in', md5('asdasd'), time() + (86400 * 30), "/"); // 86400 = 1 day
+      return;
+    } else {
+      $warning = 'Wrong email or password.';
+    }
+  }
+
+  get_header();
+  ?>
+    <form class="form-signin" method="post">
+      <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <?php if($warning !== null) : ?><div class="alert alert-danger" role="alert"><?php echo $warning; ?></div><?php endif; ?>
+      <label for="inputEmail" class="sr-only">Email address</label>
+      <input name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+  <?php
+  get_footer();
+  die();
+}
