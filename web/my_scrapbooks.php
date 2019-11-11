@@ -3,6 +3,6 @@
 
 <h1>My scrapbooks</h1>
 
-<p>blablabla</p>
+<a href="/scrapbook.php?id=1">Example scrapbook</a>
 
 <?php get_footer(); ?>
