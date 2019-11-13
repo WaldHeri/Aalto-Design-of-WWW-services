@@ -6,7 +6,7 @@
 <h1>My scrapbooks</h1>
 
 <p>
-  <a href="#" class="btn btn-primary">Create new scrapbook</a>
+  <a href="create_scrapbook.php" class="btn btn-primary">Create new scrapbook</a>
 </p>
 
 <div class="row mb-2">
