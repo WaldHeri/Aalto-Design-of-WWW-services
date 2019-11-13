@@ -3,6 +3,6 @@
 
 <h1>About Link Scrapbook</h1>
 
-<p>blablabla</p>
+<p>moiccu moi</p>
 
 <?php get_footer(); ?>
