@@ -10,8 +10,5 @@
 <p>That is why we designed Link Scrapbook, a web-based service, which allows users to assemble links for articles and store them in neatly in one place. As a user, you are able to organize, tag and describe the links as you wish.</p>
 
 
-<h3>Why do I need yet another service to use?</h3>
-
-
 
 <?php get_footer(); ?>
