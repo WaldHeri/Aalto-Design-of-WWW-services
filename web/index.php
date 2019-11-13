@@ -23,15 +23,32 @@
 <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
   <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
     <div class="my-3 p-3">
-      <h2 class="display-5">Create your own scrapbooks.</h2>
-      <p class="lead">A scrapbook can be about anything. If you can't come up with scrapbooks of your own here you have a couple of examples: history, films or food.</p>
+      <h2 class="display-5">Step 1: Create an account.</h2>
+      <p class="lead">Users log into Link Scrapbook in order to create and access their scrapbooks aka folders, which contain all the links.</p>
     </div>
     <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
   </div>
   <div class="bg-primary mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
     <div class="my-3 py-3">
-      <h2 class="display-5">Tag your links.</h2>
-      <p class="lead">Sort your links further with tags.</p>
+      <h2 class="display-5">Step 2: Add links to scrapbooks.</h2>
+      <p class="lead">A scrapbook can be about anything. If you can't come up with scrapbooks of your own here you have a couple of examples: history, films or food.</p>
+    </div>
+    <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+  </div>
+</div>
+
+<div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+  <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+    <div class="my-3 p-3">
+      <h2 class="display-5">Step 3: Tag your links.</h2>
+      <p class="lead">Add tags to your links and sort them even further.</p>
+    </div>
+    <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+  </div>
+  <div class="bg-primary mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+    <div class="my-3 py-3">
+      <h2 class="display-5">Step 4: Return to the links you would've otherwise already forgotten.</h2>
+      <p class="lead">Open old scrapbooks and filter their content with tags and sort links by date added.</p>
     </div>
     <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
   </div>
