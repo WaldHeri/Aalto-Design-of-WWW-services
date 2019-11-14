@@ -17,9 +17,9 @@ if (isset($_POST['submit'])) {
         $description = pg_escape_literal($dbConnection, $_POST["description"]);
 
         if (isset($_POST['public']) and $_POST['public'] == 'true') {
-            $public = false;
-        }else{
             $public = true;
+        }else{
+            $public = false;
         }
 
         $query = "INSERT INTO public.\"Scrapbook\" (user_id, public, title, description) VALUES ($1, $2, $3, $4)";
