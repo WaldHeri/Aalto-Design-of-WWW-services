@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
         $title = pg_escape_literal($dbConnection, $_POST['title']);
         $description = pg_escape_literal($dbConnection, $_POST["description"]);
 
-        if (empty($_POST['public'])) {
+        if (isset($_POST['public']) and $_POST['public'] == 'true') {
             $public = false;
         }else{
             $public = true;
