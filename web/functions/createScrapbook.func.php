@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
         $result = pg_execute($dbConnection, "stmt", array($user_id, $public, $title, $description));
 
         if ($result === false) {
-            header("Location: ../my_scrapbooks.php?create=error3");
+            header("Location: ../my_scrapbooks.php?create=error3$public");
             exit();
         } else {
             header("Location: ../my_scrapbooks.php?create=success");
