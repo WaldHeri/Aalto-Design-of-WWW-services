@@ -48,7 +48,7 @@
   <div class="bg-primary mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
     <div class="my-3 py-3">
       <h2 class="display-5">Step 4: Return to the links you would've otherwise already forgotten.</h2>
-      <p class="lead">Open old scrapbooks and filter their content with tags and sort links by date added.</p>
+      <p class="lead">Open old scrapbooks and filter their content with tags and sort links by date.</p>
     </div>
     <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
   </div>
