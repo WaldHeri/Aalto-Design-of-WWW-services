@@ -4,12 +4,12 @@ require('../functions.php');
 if (isset($_POST['submit'])) {
     include 'dbHost.func.php';
     if ($dbConnection === false) {
-        header("Location: ../my_scrapbooks.php?create=error");
+        header("Location: ../my_scrapbooks.php?create=error1");
         exit();
     }
     $user_id = '1'; //$_SESSION['user_id']; TODO remove comment
     if (empty($user_id)) {
-        header("Location: ../my_scrapbooks.php?login=error");
+        header("Location: ../my_scrapbooks.php?login=error2");
         exit();
     } else {
         
@@ -28,7 +28,7 @@ if (isset($_POST['submit'])) {
         $result = pg_execute($dbConnection, "stmt", array($user_id, $public, $title, $description));
 
         if ($result === false) {
-            header("Location: ../my_scrapbooks.php?create=error");
+            header("Location: ../my_scrapbooks.php?create=error3");
             exit();
         } else {
             header("Location: ../my_scrapbooks.php?create=success");
@@ -36,6 +36,6 @@ if (isset($_POST['submit'])) {
         }
     }
 } else {
-    header("Location: ../my_scrapbooks.php?create=error");
+    header("Location: ../my_scrapbooks.php?create=error4");
     exit();
 }
