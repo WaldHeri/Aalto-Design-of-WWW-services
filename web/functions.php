@@ -1,6 +1,6 @@
 <?php
 
-require('../vendor/autoload.php');
+//require('../vendor/autoload.php');
 
 //$dbh = new PDO(getenv('DATABASE_URL'));
 
