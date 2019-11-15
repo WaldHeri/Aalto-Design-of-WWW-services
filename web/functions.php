@@ -61,7 +61,6 @@ function check_login() {
   get_header();
   ?>
     <form class="form-signin" method="post">
-      <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <?php if($warning !== null) : ?><div class="alert alert-danger" role="alert"><?php echo $warning; ?></div><?php endif; ?>
       <label for="inputEmail" class="sr-only">Email address</label>
