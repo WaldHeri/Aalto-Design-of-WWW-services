@@ -3,9 +3,8 @@
 
 <?php get_header('My scrapbooks'); ?>
 
-<h1>My scrapbooks</h1>
-<form id="createForm" class="form-signin" method="post" action="functions/createScrapbook.func.php">
-  <h1 class="h3 mb-3 font-weight-normal">Create new scrapbook</h1>
+<form id="createForm" method="post" action="functions/createScrapbook.func.php" class="col-md-8">
+  <h1 class="h1 mb-3 font-weight-normal">Create new scrapbook</h1>
   <label for="inputTitle" class="sr-only">Scrapbook title</label>
   <input name="title" type="text" id="inputTitle" class="form-control" placeholder="Scrapbook title" required autofocus>
   <label for="inputDescription" class="sr-only">Description</label>
