@@ -10,6 +10,7 @@ function get_header($title = 'Link Scrapbook') {
   <html>
     <head>
       <title><?php echo $title; ?></title>
+      <meta name="viewport" content="width=device-width">
       <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css" />
       <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Playfair+Display:400,700&display=swap" rel="stylesheet">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
