@@ -1,6 +1,6 @@
 <?php
 
-require('dbHost.func.php');
+require('functions/dbHost.func.php');
 
 function get_header($title = 'Link Scrapbook') {
   ?>
