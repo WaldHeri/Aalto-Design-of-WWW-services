@@ -1,8 +1,6 @@
 <?php
 
-//require('../vendor/autoload.php');
-
-//$dbh = new PDO(getenv('DATABASE_URL'));
+require('dbHost.func.php');
 
 function get_header($title = 'Link Scrapbook') {
   ?>

@@ -2,7 +2,6 @@
 session_start();
 require('../functions.php');
 if (isset($_POST['submit'])) {
-    include 'dbHost.func.php';
     if ($dbConnection === false) {
         header("Location: ../my_scrapbooks.php?create=error1");
         exit();
@@ -12,7 +11,7 @@ if (isset($_POST['submit'])) {
         header("Location: ../my_scrapbooks.php?login=error2");
         exit();
     } else {
-        
+
         $title = pg_escape_literal($dbConnection, $_POST['title']);
         $description = pg_escape_literal($dbConnection, $_POST["description"]);
 
