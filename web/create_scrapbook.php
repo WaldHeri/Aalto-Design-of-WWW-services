@@ -5,7 +5,6 @@
 
 <h1>My scrapbooks</h1>
 <form id="createForm" class="form-signin" method="post" action="functions/createScrapbook.func.php">
-  <img class="mb-4" src="/docs/4.3/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
   <h1 class="h3 mb-3 font-weight-normal">Create new scrapbook</h1>
   <label for="inputTitle" class="sr-only">Scrapbook title</label>
   <input name="title" type="text" id="inputTitle" class="form-control" placeholder="Scrapbook title" required autofocus>
