@@ -3,12 +3,12 @@ session_start();
 require('../functions.php');
 if (isset($_POST['submit'])) {
     if ($dbConnection === false) {
-        header("Location: ../my_scrapbooks.php?create=error1");
+        header("Location: ../my_scrapbooks.php?create=error");
         exit();
     }
     $user_id = '1'; //$_SESSION['user_id']; TODO remove comment
     if (empty($user_id)) {
-        header("Location: ../my_scrapbooks.php?login=error2");
+        header("Location: ../my_scrapbooks.php?login=error");
         exit();
     } else {
 
@@ -22,12 +22,11 @@ if (isset($_POST['submit'])) {
         }
 
         $query = "INSERT INTO public.\"Scrapbook\" (user_id, public, title, description) VALUES ($1, $2, $3, $4)";
-        echo $query;
-        $result = pg_prepare($dbConnection, "stmt", $query);
-        $result = pg_execute($dbConnection, "stmt", array($user_id, $public, $title, $description));
+        $result = pg_prepare($dbConnection, "scrapbook", $query);
+        $result = pg_execute($dbConnection, "scrapbook", array($user_id, $public, $title, $description));
 
         if ($result === false) {
-            header("Location: ../my_scrapbooks.php?create=error3$public");
+            header("Location: ../my_scrapbooks.php?create=error");
             exit();
         } else {
             header("Location: ../my_scrapbooks.php?create=success");
@@ -35,6 +34,6 @@ if (isset($_POST['submit'])) {
         }
     }
 } else {
-    header("Location: ../my_scrapbooks.php?create=error4");
+    header("Location: ../my_scrapbooks.php?create=error");
     exit();
 }

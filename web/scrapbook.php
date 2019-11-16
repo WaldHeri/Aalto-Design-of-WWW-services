@@ -16,7 +16,7 @@ if (empty($_GET['id'])) {
 <h1>Example scrapbook</h1>
 
 <p>
-  <a href="#" class="btn btn-primary">Add new link</a>
+  <a href="create_scrap.php?id=<?php echo $_GET['id']; ?>" class="btn btn-primary">Add new link</a>
 </p>
 
 <div class="row">
