@@ -12,7 +12,7 @@
 <div class="row mb-2">
   <?php
 
-    $result = pg_query($dbConnection, "SELECT * FROM Scrapbook WHERE user_id = 1");
+    $result = pg_query($dbConnection, 'SELECT * FROM "Scrapbook" WHERE user_id = 1');
 
     if (!$result) {
         echo "An error occurred.\n";
