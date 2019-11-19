@@ -4,6 +4,7 @@ require('functions/dbHost.func.php');
 
 function get_header($title = 'Link Scrapbook')
 {
+
   ?>
   <!DOCTYPE html>
   <html>
@@ -35,7 +36,14 @@ function get_header($title = 'Link Scrapbook')
           </li>
         </ul>
       </div>
+      <div class="collapse navbar-collapse ">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="logout.php">Log out</a>
+          </li>
+        </ul>
     </nav>
+    </div>
     <div class="container">
     <?php
     }
@@ -68,8 +76,8 @@ function check_login()
     if ($login_result === false) {
       $warning = 'Error.';
     } else {
-      
-      
+
+
       if (pg_num_rows($login_result) === 0) {
         $warning = 'Wrong username or password.';
       } else {
@@ -82,11 +90,11 @@ function check_login()
           $_SESSION['email'] = $user_data['email'];
           $_SESSION['logged_in'] = md5($_SESSION['user_id'] . $_SESSION['username']);
 
-        
+
 
           return;
         } else {
-          
+
           $warning =  'Wrong username or password.';
         }
       }
@@ -95,7 +103,7 @@ function check_login()
 
 
 
-   
+
 
   get_header();
   ?>
@@ -115,21 +123,33 @@ function check_login()
   die();
 }
 
+
+
+
+
 function expire_session()
 {
-  if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 30 )) {
-    session_unset();     
-    session_destroy();   
+  if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 30 * 60)) {
+    session_unset();
+    session_destroy();
   }
-  $_SESSION['LAST_ACTIVITY'] = time(); 
-
+  $_SESSION['LAST_ACTIVITY'] = time();
 }
 
 function parse_timestamp($timestamp, $format = 'M d Y')
 {
-    return date($format, strtotime($timestamp));
+  return date($format, strtotime($timestamp));
 }
 
-function get_updated_time($scrapbook_id){
+function get_updated_time($scrapbook_id)
+{
+  require('functions/dbHost.func.php');
 
+  $time_result = pg_execute($dbConnection, "updated", array($scrapbook_id));
+  $array = pg_fetch_all_columns($time_result, 0);
+  if (!empty($array)) {
+    return max($array);
+  } else {
+    return null;
+  }
 }

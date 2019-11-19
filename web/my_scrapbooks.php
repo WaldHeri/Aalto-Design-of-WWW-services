@@ -19,13 +19,14 @@
     exit;
   }
   if (pg_num_rows($result) > 0) {
+    pg_prepare($dbConnection, "updated", 'SELECT "Scrap".updated FROM "Scrap", "HasScrap" WHERE "HasScrap".scrap_id = "Scrap".id AND "HasScrap".scrapbook_id = $1');
     foreach (pg_fetch_all($result) as $scrapbook) {
       echo '<div class="col-md-6">
         <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
           <div class="col p-4 d-flex flex-column position-static">
             <strong class="d-inline-block mb-2 text-primary">World</strong>
             <h3 class="mb-0">' . $scrapbook['title'] . '</h3>
-            <div class="mb-1 text-muted">Last edited: Nov 12</div>
+            <div class="mb-1 text-muted">Last edited: ' . parse_timestamp(max(get_updated_time($scrapbook['id']), $scrapbook['created'] )) . '</div>
             <p class="card-text mb-auto">' . $scrapbook['description'] . '</p>
             <a href="/scrapbook.php?id=' . $scrapbook['id'] . '" class="stretched-link">View scrapbook</a>
           </div>

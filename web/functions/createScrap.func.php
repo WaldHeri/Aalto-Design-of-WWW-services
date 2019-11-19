@@ -21,31 +21,22 @@ if (isset($_POST['submitCreate']) or isset($_POST['submitCopy'])) {
     } else {
         $link_id = '';
         if (isset($_POST['submitCreate'])) {
+            $link_id = create_link($dbConnection, $_POST);
 
-
-            $url = $_POST['url'];
-            $notes = $_POST["notes"];
-
-            $query = "INSERT INTO public.\"Link\" (url) VALUES ($1) RETURNING id";
-            $link_result = pg_prepare($dbConnection, "link", $query);
-            $link_result = pg_execute($dbConnection, "link", array($url));
-            if ($link_result === false) {
+            if ($link_id === null) {
                 header("Location: ../my_scrapbooks.php?create=error3");
                 exit();
             }
-
-            $row = pg_fetch_row($link_result);
-            $link_id = $row['0'];
         }
 
-
+        $notes = $_POST['notes'];
         date_default_timezone_set('Europe/Helsinki');
-        $updated = date('Y-m-d H:m:s');
+        $updated = date('Y-m-d H:i:s');
 
         $query = "INSERT INTO public.\"Scrap\" (link_id, notes, updated) VALUES ($1, $2, $3) RETURNING id";
         $scrap_result = pg_prepare($dbConnection, "scrap", $query);
         $scrap_result = pg_execute($dbConnection, "scrap", array($link_id, $notes, $updated));
-        
+
         if ($scrap_result === false) {
             header("Location: ../my_scrapbooks.php?create=error4");
             exit();
@@ -70,3 +61,41 @@ if (isset($_POST['submitCreate']) or isset($_POST['submitCopy'])) {
     header("Location: ../my_scrapbooks.php?create=error5");
     exit();
 }
+
+function create_link($dbConnection, $post)
+{
+
+    $url = $post['url'];
+    $tags = get_tags($url);
+    $image_url = $tags['image'];
+    $title = $tags['title'];
+    $description = $tags['description'];
+
+    $query = "INSERT INTO public.\"Link\" (url, image_url, title, description) VALUES ($1, $2, $3, $4) RETURNING id";
+    $link_result = pg_prepare($dbConnection, "link", $query);
+    $link_result = pg_execute($dbConnection, "link", array($url, $image_url, $title, $description));
+    if ($link_result === false) {
+        return null;
+    }
+
+    $row = pg_fetch_row($link_result);
+    return $row['0'];
+}
+
+
+// https://stackoverflow.com/questions/3711357/getting-title-and-meta-tags-from-external-website
+function get_tags($url, $specificTags=0)
+{
+    $doc = new DOMDocument();
+    @$doc->loadHTML(file_get_contents($url));
+    $res['title'] = $doc->getElementsByTagName('title')->item(0)->nodeValue;
+
+    foreach ($doc->getElementsByTagName('meta') as $m){
+        $tag = $m->getAttribute('name') ?: $m->getAttribute('property');
+        if(in_array($tag,['description','keywords']) || strpos($tag,'og:')===0) $res[str_replace('og:','',$tag)] = $m->getAttribute('content');
+    }
+    return  $res;
+}
+
+
+
