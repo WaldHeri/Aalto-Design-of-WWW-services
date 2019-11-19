@@ -6,15 +6,15 @@ if (isset($_POST['submitCreate']) or isset($_POST['submitCopy'])) {
         header("Location: ../my_scrapbooks.php?create=error1");
         exit();
     }
-    if(empty($_POST['scrapbook_id'])){
+    if (empty($_POST['scrapbook_id'])) {
         header("Location: ../my_scrapbooks.php?=error11");
-        exit(); 
+        exit();
     }
 
     $scrapbook_id = $_POST['scrapbook_id'];
 
 
-    $user_id = '1'; //$_SESSION['user_id']; TODO remove comment
+    $user_id = $_SESSION['user_id'];
     if (empty($user_id)) {
         header("Location: ../my_scrapbooks.php?login=error");
         exit();
@@ -23,18 +23,18 @@ if (isset($_POST['submitCreate']) or isset($_POST['submitCopy'])) {
         if (isset($_POST['submitCreate'])) {
 
 
-            $url = pg_escape_literal($dbConnection, $_POST['url']);
-            $notes = pg_escape_literal($dbConnection, $_POST["notes"]);
+            $url = $_POST['url'];
+            $notes = $_POST["notes"];
 
             $query = "INSERT INTO public.\"Link\" (url) VALUES ($1) RETURNING id";
-            $result = pg_prepare($dbConnection, "link", $query);
-            $result = pg_execute($dbConnection, "link", array($url));
-            if ($result === false) {
+            $link_result = pg_prepare($dbConnection, "link", $query);
+            $link_result = pg_execute($dbConnection, "link", array($url));
+            if ($link_result === false) {
                 header("Location: ../my_scrapbooks.php?create=error3");
                 exit();
             }
 
-            $row = pg_fetch_row($result);
+            $row = pg_fetch_row($link_result);
             $link_id = $row['0'];
         }
 
@@ -43,22 +43,30 @@ if (isset($_POST['submitCreate']) or isset($_POST['submitCopy'])) {
         $updated = date('Y-m-d H:m:s');
 
         $query = "INSERT INTO public.\"Scrap\" (link_id, notes, updated) VALUES ($1, $2, $3) RETURNING id";
-        $result = pg_prepare($dbConnection, "scrap", $query);
-        $result = pg_execute($dbConnection, "scrap", array($link_id, $notes, $updated));
-
-
-
-        if ($result === false) {
+        $scrap_result = pg_prepare($dbConnection, "scrap", $query);
+        $scrap_result = pg_execute($dbConnection, "scrap", array($link_id, $notes, $updated));
+        
+        if ($scrap_result === false) {
             header("Location: ../my_scrapbooks.php?create=error4");
             exit();
-        } else {
-            header("Location: ../scrapbook.php?id=$scrapbook_id");
+        }
+
+        $row = pg_fetch_row($scrap_result);
+        $scrap_id = $row['0'];
+
+        $query = "INSERT INTO public.\"HasScrap\" (scrapbook_id, scrap_id) VALUES ($1, $2)";
+        $has_scrap_result = pg_prepare($dbConnection, "has_scrap", $query);
+        $has_scrap_result = pg_execute($dbConnection, "has_scrap", array($scrapbook_id, $scrap_id));
+
+        if ($has_scrap_result === false) {
+            header("Location: ../my_scrapbooks.php?create=error6");
             exit();
         }
+
+        header("Location: ../scrapbook.php?id=$scrapbook_id");
+        exit();
     }
 } else {
     header("Location: ../my_scrapbooks.php?create=error5");
     exit();
 }
-
-

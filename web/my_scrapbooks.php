@@ -11,15 +11,15 @@
 
 <div class="row mb-2">
   <?php
+  $user_id = $_SESSION['user_id'];
+  $result = pg_query($dbConnection, 'SELECT * FROM "Scrapbook" WHERE user_id = ' . $user_id);
 
-    $result = pg_query($dbConnection, 'SELECT * FROM "Scrapbook" WHERE user_id = 1');
-
-    if (!$result) {
-        echo "An error occurred.\n";
-        exit;
-    }
-
-    foreach(pg_fetch_all($result) as $scrapbook) {
+  if (!$result) {
+    echo "An error occurred.\n";
+    exit;
+  }
+  if (pg_num_rows($result) > 0) {
+    foreach (pg_fetch_all($result) as $scrapbook) {
       echo '<div class="col-md-6">
         <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
           <div class="col p-4 d-flex flex-column position-static">
@@ -35,6 +35,7 @@
         </div>
       </div>';
     }
+  }
 
 
   ?>

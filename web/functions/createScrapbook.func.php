@@ -6,14 +6,14 @@ if (isset($_POST['submit'])) {
         header("Location: ../my_scrapbooks.php?create=error");
         exit();
     }
-    $user_id = '1'; //$_SESSION['user_id']; TODO remove comment
+    $user_id = $_SESSION['user_id'];
     if (empty($user_id)) {
         header("Location: ../my_scrapbooks.php?login=error");
         exit();
     } else {
 
-        $title = pg_escape_literal($dbConnection, $_POST['title']);
-        $description = pg_escape_literal($dbConnection, $_POST["description"]);
+        $title = $_POST['title'];
+        $description = $_POST["description"];
 
         if (isset($_POST['public']) and $_POST['public'] == 'true') {
             $public = 't';

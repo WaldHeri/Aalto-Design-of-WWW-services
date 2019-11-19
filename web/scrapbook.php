@@ -5,7 +5,7 @@ if (empty($_GET['id'])) {
   header('Location: /my_scrapbooks.php');
   die();
 }
-
+check_login();
 $result = pg_prepare($dbConnection, "scrapbook", 'SELECT * FROM "Scrapbook" WHERE id = $1');
 $result = pg_execute($dbConnection, "scrapbook", array($_GET['id']));
 
@@ -33,6 +33,9 @@ $scraps = pg_fetch_all($result);
 
 <div class="row">
   <?php
+  if (empty($scraps)){
+    echo '<h4>Your scrapbook is still empty. Add your first link from the button above!</h4>';
+  }else{
   foreach($scraps as $scrap) {
     echo '<div class="col-md-4">
       <div class="card mb-4 shadow-sm">
@@ -50,6 +53,7 @@ $scraps = pg_fetch_all($result);
       </div>
     </div>';
   }
+}
   ?>
 </div>
 
