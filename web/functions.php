@@ -36,9 +36,8 @@ function get_header($title = 'Link Scrapbook')
             <a class="nav-link" href="/about.php">About</a>
           </li>
         </ul>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ml-auto">
+        
+        <ul class="navbar-nav ml-auto mr-3">
           <li class="nav-item">
             <?php if (!empty($_SESSION['user_id'])) { ?>
               <a class="nav-link" href="/logout.php">Log out</a>
@@ -47,7 +46,14 @@ function get_header($title = 'Link Scrapbook')
             <?php } ?>
           </li>
         </ul>
+        <form class="form-inline mt-2 mt-md-0" method="get" action="./search.php">
+          <input name="tag" class="form-control mr-sm-2" type="text" placeholder="Search for tags" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
       </div>
+
+
+
     </nav>
     </div>
     <div class="container">

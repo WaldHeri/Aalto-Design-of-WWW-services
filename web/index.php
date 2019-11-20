@@ -6,7 +6,7 @@
     <h1 class="display-4 font-weight-normal">Be smart, save your links.
     </h1>
     <p class="lead font-weight-normal"> Welcome to Link Scrapbook. By using the service you can forget your past life strained by an unorganized flow of information. Organize links to scrapbooks and tag and filter them as you wish. </p>
-    <a class="btn btn-outline-secondary" href="#">Sign in</a>
+    <a class="btn btn-outline-secondary" href="my_scrapbooks.php">Sign in</a>
   </div>
   <div class="product-device shadow-sm d-none d-md-block"></div>
   <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>

@@ -23,6 +23,10 @@ if (empty($_GET['id'])) {
     <textarea name="notes" class="form-control" rows="5" id="inputNotes" placeholder="Your notes about the link" form="createForm"></textarea>
   </div>
   <input hidden="true" name="scrapbook_id" value="<?php echo $_GET['id']; ?>" form="createForm">
+  <div class="form-group">
+    <label for="inputTags">Tags</label>
+    <input name="tags" type="text" id="inputTags" class="form-control" placeholder="List your tags here separated by space" required autofocus>
+  </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit" name="submitCreate" >Create</button>
 </form>
 <?php get_footer(); ?>

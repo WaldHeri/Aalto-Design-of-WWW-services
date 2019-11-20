@@ -53,7 +53,8 @@ if (isset($_POST['submitCreate']) or isset($_POST['submitCopy'])) {
             header("Location: ../my_scrapbooks.php?create=error6");
             exit();
         }
-
+        $keywords = $_POST['tags'];
+        add_hashtags($dbConnection, $scrap_id, $keywords);
         header("Location: ../scrapbook.php?id=$scrapbook_id");
         exit();
     }
@@ -98,4 +99,22 @@ function get_tags($url, $specificTags=0)
 }
 
 
+function add_hashtags($dbConnection, $scrap_id, $keywords){
+    $arr = explode(' ', $keywords);
+    pg_prepare($dbConnection, 'tag', 'SELECT id FROM "Tag" WHERE name = $1');
+    pg_prepare($dbConnection, 'createtag', 'INSERT INTO "Tag" (name) VALUES ($1) RETURNING id');
+    pg_prepare($dbConnection, 'hastag', 'INSERT INTO "HasTag" (tag_id, scrap_id) VALUES ($1, $2)');
+    foreach($arr as $word){
+        $result = pg_execute($dbConnection, 'tag', array($word));
+        $rows = pg_num_rows($result);
+        if($rows > 0){
+            pg_execute($dbConnection, 'hastag', array( pg_fetch_row($result)['0'], $scrap_id ));
+        } else {
+            $create_result = pg_execute($dbConnection, 'createtag', array($word));
+            $row = pg_fetch_row($create_result);
+            pg_execute($dbConnection, 'hastag', array($row['0'], $scrap_id ));
+        }
+    }
+    return;
+}
 
