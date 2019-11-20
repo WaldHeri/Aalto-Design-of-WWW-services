@@ -28,10 +28,7 @@
             <h3 class="mb-0">' . $scrapbook['title'] . '</h3>
             <div class="mb-1 text-muted">Last edited: ' . parse_timestamp(max(get_updated_time($scrapbook['id']), $scrapbook['created'] )) . '</div>
             <p class="card-text mb-auto">' . $scrapbook['description'] . '</p>
-            <a href="/scrapbook.php?id=' . $scrapbook['id'] . '" class="stretched-link">View scrapbook</a>
-          </div>
-          <div class="col-auto d-none d-lg-block">
-            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <a href="/scrapbook.php?id=' . $scrapbook['id'] . '" class="stretched-link" style="margin-top: 1em;">View scrapbook</a>
           </div>
         </div>
       </div>';
