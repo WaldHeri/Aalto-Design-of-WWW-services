@@ -37,12 +37,17 @@ function get_header($title = 'Link Scrapbook')
           </li>
         </ul>
       </div>
-      <div class="collapse navbar-collapse ">
+      <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="logout.php">Log out</a>
+            <?php if (!empty($_SESSION['user_id'])) { ?>
+              <a class="nav-link" href="/logout.php">Log out</a>
+            <?php } else { ?>
+              <a class="nav-link" href="/my_scrapbooks.php">Sign in</a>
+            <?php } ?>
           </li>
         </ul>
+      </div>
     </nav>
     </div>
     <div class="container">
