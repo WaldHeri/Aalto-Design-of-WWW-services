@@ -1,11 +1,13 @@
 <?php require('functions.php'); ?>
 <?php
 
+session_start();
+
 if (empty($_GET['id'])) {
   header('Location: /my_scrapbooks.php');
   die();
 }
-check_login();
+
 $result = pg_prepare($dbConnection, "scrapbook", 'SELECT * FROM "Scrapbook" WHERE id = $1');
 $result = pg_execute($dbConnection, "scrapbook", array($_GET['id']));
 
@@ -15,6 +17,21 @@ if (!$result) {
 }
 
 $scrapbook = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+
+if ($scrapbook['public'] === false) {
+  if (!empty($_SESSION['user_id']) && $scrapbook['user_id'] === $_SESSION['user_id']) {
+    check_login();
+  } else {
+    header('Location: /');
+    die();
+  }
+}
+
+$is_own_scrapbook = false;
+
+if (!empty($_SESSION['user_id']) && $scrapbook['user_id'] === $_SESSION['user_id']) {
+  $is_own_scrapbook = true;
+}
 
 $result = pg_prepare($dbConnection, "scraps", 'SELECT "Scrap".*, "Link".* FROM "Scrap", "HasScrap", "Link" WHERE "Scrap".link_id = "Link".id AND "HasScrap".scrap_id = "Scrap".id AND "HasScrap".scrapbook_id = $1');
 $result = pg_execute($dbConnection, "scraps", array($_GET['id']));
@@ -27,13 +44,13 @@ $scraps = pg_fetch_all($result);
 
 <h1><?php echo $scrapbook['title']; ?></h1>
 
-<p>
-  <a href="create_scrap.php?id=<?php echo $_GET['id']; ?>" class="btn btn-primary">Add new link</a>
-</p>
+<?php if($is_own_scrapbook) { ?>
+  <p><a href="create_scrap.php?id=<?php echo $_GET['id']; ?>" class="btn btn-primary">Add new link</a></p>
+  <?php } ?>
 
 <div class="row">
   <?php
-  if (empty($scraps)) {
+  if (empty($scraps) && $is_own_scrapbook) {
     echo '<h4>Your scrapbook is still empty. Add your first link from the button above!</h4>';
   } else {
     foreach ($scraps as $scrap) {
@@ -46,20 +63,17 @@ $scraps = pg_fetch_all($result);
       }
 
       echo '<div class="card-body">
-        <h3 class="mb-0">' . $scrap['title'] . '</h3>
-        <p class="card-text mb-auto">' . substr($scrap['description'] , 0, min(strlen($scrap['description']), 150)) . '<br>. . .</p>
-        <h4 class="mb-0">Notes:</h4>
-          <p class="card-text">' . $scrap['notes'] . '</p>
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="btn-group">
-              <a href="' . $scrap['url'] . '" class="btn btn-sm btn-outline-secondary" target="_blank">View</a>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-            </div>
-            <small class="text-muted">' . parse_timestamp($scrap['updated'],'M d Y H:i') . '</small>
+        <h5 class="mb-0">' . $scrap['title'] . '</h5>
+        <p class="card-text">' . $scrap['notes'] . '</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <a href="' . $scrap['url'] . '" class="btn btn-sm btn-outline-secondary" target="_blank">View</a>
+            ' . ($is_own_scrapbook ? '<button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>' : '') . '
           </div>
+          <small class="text-muted">' . parse_timestamp($scrap['updated'],'M d Y H:i') . '</small>
         </div>
       </div>
-    </div>';
+    </div></div>';
     }
   }
   ?>
