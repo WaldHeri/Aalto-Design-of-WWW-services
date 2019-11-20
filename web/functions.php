@@ -10,6 +10,7 @@ function get_header($title = 'Link Scrapbook')
   <html>
 
   <head>
+    <meta name="charset" content="utf-8">
     <title><?php echo $title; ?></title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css" />

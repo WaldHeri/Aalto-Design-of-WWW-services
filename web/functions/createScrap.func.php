@@ -87,7 +87,7 @@ function create_link($dbConnection, $post)
 function get_tags($url, $specificTags=0)
 {
     $doc = new DOMDocument();
-    @$doc->loadHTML(file_get_contents($url));
+    @$doc->loadHTML('<?xml encoding="utf-8" ?>' . file_get_contents($url));
     $res['title'] = $doc->getElementsByTagName('title')->item(0)->nodeValue;
 
     foreach ($doc->getElementsByTagName('meta') as $m){
