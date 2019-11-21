@@ -19,13 +19,14 @@ $scraps = pg_fetch_all($result);
 
 <h1><?php echo "Results for tag: " . htmlspecialchars($tag_name); ?></h1>
 
-<div class="row">
+
   <?php
   if (empty($scraps)) {
     echo '<div class="alert alert-primary" role="alert">
     No results for tag: '. htmlspecialchars($tag_name) . '</div>';
   } else {
     foreach ($scraps as $scrap) {
+      echo '<div class="row">';
       echo '<div class="col-md-4">
       <div class="card mb-4 shadow-sm">';
       if (empty($scrap['image_url'])) {
