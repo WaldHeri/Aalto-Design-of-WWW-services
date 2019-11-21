@@ -36,12 +36,17 @@ function get_header($title = 'Link Scrapbook')
             <a class="nav-link" href="/about.php">About</a>
           </li>
         </ul>
-        
+
         <ul class="navbar-nav ml-auto mr-3">
+        <?php if (!empty($_SESSION['user_id'])) { ?>
+        <li class="navbar-text">
+            <b><?php echo htmlspecialchars($_SESSION['username']) ?></b>
+          </li>
           <li class="nav-item">
-            <?php if (!empty($_SESSION['user_id'])) { ?>
+            
               <a class="nav-link" href="/logout.php">Log out</a>
             <?php } else { ?>
+            <li class="nav-item">
               <a class="nav-link" href="/my_scrapbooks.php">Sign in</a>
             <?php } ?>
           </li>
@@ -72,7 +77,6 @@ function get_header($title = 'Link Scrapbook')
 
 function check_login()
 {
-  session_start();
   expire_session();
   require('functions/dbHost.func.php');
   if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === md5($_SESSION['user_id'] . $_SESSION['username'])) return;

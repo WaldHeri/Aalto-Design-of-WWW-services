@@ -1,4 +1,5 @@
 <?php require('functions.php'); ?>
+<?php session_start(); ?>
 <?php check_login();
 
 if (empty($_GET['id'])) {

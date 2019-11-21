@@ -1,5 +1,6 @@
 <?php require('functions.php'); ?>
 <?php
+session_start();
 $warning = null;
 if (isset($_GET['error'])) {
     if ($_GET['error'] == 'username') {

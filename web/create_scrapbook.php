@@ -1,4 +1,5 @@
 <?php require('functions.php'); ?>
+<?php session_start(); ?>
 <?php check_login(); ?>
 
 <?php get_header('My scrapbooks'); ?>

@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
             $public = 'f';
         }
 
-        $query = "INSERT INTO public.\"Scrapbook\" (user_id, public, title, description) VALUES ($1, $2, $3, $4)";
+        $query = "INSERT INTO public.\"Scrapbook\" (user_id, public, title, description) VALUES ($1, $2, $3, $4) RETURNING id";
         $result = pg_prepare($dbConnection, "scrapbook", $query);
         $result = pg_execute($dbConnection, "scrapbook", array($user_id, $public, $title, $description));
 
@@ -29,7 +29,9 @@ if (isset($_POST['submit'])) {
             header("Location: ../my_scrapbooks.php?create=error");
             exit();
         } else {
-            header("Location: ../my_scrapbooks.php?create=success");
+            $row = pg_fetch_row($result);
+            $scrapbook_id = $row['0'];
+            header("Location: ../scrapbook.php?id=$scrapbook_id");
             exit();
         }
     }
