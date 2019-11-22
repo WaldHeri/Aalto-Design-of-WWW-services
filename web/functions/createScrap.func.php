@@ -3,11 +3,11 @@ session_start();
 require('../functions.php');
 if (isset($_POST['submitCreate']) or isset($_POST['submitCopy'])) {
     if ($dbConnection === false) {
-        header("Location: ../my_scrapbooks.php?create=error1");
+        header("Location: ../my_scrapbooks.php?create=error");
         exit();
     }
     if (empty($_POST['scrapbook_id'])) {
-        header("Location: ../my_scrapbooks.php?=error11");
+        header("Location: ../my_scrapbooks.php?=error");
         exit();
     }
 
@@ -24,7 +24,7 @@ if (isset($_POST['submitCreate']) or isset($_POST['submitCopy'])) {
             $link_id = create_link($dbConnection, $_POST);
 
             if ($link_id === null) {
-                header("Location: ../my_scrapbooks.php?create=error3");
+                header("Location: ../my_scrapbooks.php?create=error");
                 exit();
             }
         }
@@ -38,7 +38,7 @@ if (isset($_POST['submitCreate']) or isset($_POST['submitCopy'])) {
         $scrap_result = pg_execute($dbConnection, "scrap", array($link_id, $notes, $updated));
 
         if ($scrap_result === false) {
-            header("Location: ../my_scrapbooks.php?create=error4");
+            header("Location: ../my_scrapbooks.php?create=error");
             exit();
         }
 
@@ -50,7 +50,7 @@ if (isset($_POST['submitCreate']) or isset($_POST['submitCopy'])) {
         $has_scrap_result = pg_execute($dbConnection, "has_scrap", array($scrapbook_id, $scrap_id));
 
         if ($has_scrap_result === false) {
-            header("Location: ../my_scrapbooks.php?create=error6");
+            header("Location: ../my_scrapbooks.php?create=error");
             exit();
         }
         $keywords = $_POST['tags'];
@@ -59,7 +59,7 @@ if (isset($_POST['submitCreate']) or isset($_POST['submitCopy'])) {
         exit();
     }
 } else {
-    header("Location: ../my_scrapbooks.php?create=error5");
+    header("Location: ../my_scrapbooks.php?create=error");
     exit();
 }
 

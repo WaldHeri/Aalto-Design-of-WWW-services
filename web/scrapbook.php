@@ -47,7 +47,7 @@ $scraps = pg_fetch_all($result);
 <?php if ($is_own_scrapbook) { ?>
   <p><a href="create_scrap.php?id=<?php echo $_GET['id']; ?>" class="btn btn-primary">Add new link</a></p>
 
-  <?php if ($scrapbook['public']) { ?>
+  <?php if ($scrapbook['public'] === 'f') { ?>
     <div class="alert alert-secondary" role="alert">
       <p><strong>This scrapbook is public.</strong> Share it to your friends with link below.</p>
       <input type="text" class="form-control" disabled value="https://linkscrapbook.herokuapp.com/scrapbook.php?id=<?php echo $_GET['id']; ?>">
