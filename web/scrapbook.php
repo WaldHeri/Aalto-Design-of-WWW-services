@@ -86,7 +86,7 @@ if (empty($scraps) && $is_own_scrapbook) {
             <a href="' . filter_var($scrap['url'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED) . '" class="btn btn-sm btn-outline-secondary" target="_blank">View</a>';
     if ($is_own_scrapbook) {
       echo '<form name="deleteForm'. $scrap['id'] .'" id="deleteForm'. $scrap['id'] .'" class="form-inline" method="post" action="functions/deleteScrap.func.php">
-              <button type="submit" value="delete" class="btn btn-sm btn-outline-danger" form="deleteForm'. $scrap['id'] .'">Delete</button>
+              &nbsp;<button type="submit" value="delete" class="btn btn-sm btn-outline-danger" form="deleteForm'. $scrap['id'] .'">Delete</button>
               <input hidden="true" name="scrap_id" value="'. $scrap['id'] .'" form="deleteForm'. $scrap['id'] .'">
               <input hidden="true" name="scrapbook_id" value="'. $scrapbook['id'] .'" form="deleteForm'. $scrap['id'] .'">
             </form>
