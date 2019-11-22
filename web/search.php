@@ -6,10 +6,10 @@ $tag_name = $_GET['tag'];
 $tag_result = pg_prepare($dbConnection, "tags", 'SELECT id FROM "Tag" WHERE name = $1');
 $tag_result = pg_execute($dbConnection, "tags", array($tag_name));
 $row = pg_fetch_row($tag_result);
-$tag_id = $row['0']; 
+$tag_id = $row['0'];
 
 $result = pg_prepare($dbConnection, "scraps", 'SELECT "Scrap".*, "Link".* FROM "Scrap", "HasTag", "Link", "Scrapbook", "HasScrap", "Tag" WHERE ("Scrapbook".public OR "Scrapbook".user_id = $1) AND "HasScrap".scrapbook_id = "Scrapbook".id AND "Scrap".id = "HasScrap".scrap_id AND "Scrap".link_id = "Link".id AND "HasTag".scrap_id = "Scrap".id AND "Tag".id = "HasTag".tag_id AND "Tag".name = $2');
-$result = pg_execute($dbConnection, "scraps", array($_SESSION['user_id'], $tag_name));
+$result = pg_execute($dbConnection, "scraps", array((!empty($_SESSION['user_id']) ? $_SESSION['user_id'] : -1), $tag_name));
 
 $scraps = pg_fetch_all($result);
 
@@ -19,6 +19,7 @@ $scraps = pg_fetch_all($result);
 
 <h1><?php echo "Results for tag: " . htmlspecialchars($tag_name); ?></h1>
 
+<div class="row">
 
   <?php
   if (empty($scraps)) {
@@ -26,7 +27,6 @@ $scraps = pg_fetch_all($result);
     No results for tag: '. htmlspecialchars($tag_name) . '</div>';
   } else {
     foreach ($scraps as $scrap) {
-      echo '<div class="row">';
       echo '<div class="col-md-4">
       <div class="card mb-4 shadow-sm">';
       if (empty($scrap['image_url'])) {
