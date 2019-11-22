@@ -46,12 +46,13 @@
   </div>
 </div>
 
+
 <footer class="container py-5">
   <div class="row">
     <div class="col-12 col-md">
-      <small class="d-block mb-3 text-muted">&copy;2019: Sonia El Kamel, Valtteri Lipsanen + Ville Vuorenmaa</small>
+      <small class="d-block mb-3 text-muted"><a href="terms_of_use.php">Terms of use</a></small>
+      <small class="d-block mb-3 text-muted">&copy;2019: Sonia El Kamel, Valtteri Lipsanen & Ville Vuorenmaa</small>
     </div>
   </div>
 </footer>
-
 <?php get_footer(); ?>

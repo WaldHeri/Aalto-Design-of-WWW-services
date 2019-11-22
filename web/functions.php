@@ -38,18 +38,18 @@ function get_header($title = 'Link Scrapbook')
         </ul>
 
         <ul class="navbar-nav ml-auto mr-3">
-        <?php if (!empty($_SESSION['user_id'])) { ?>
-        <li class="navbar-text">
-            <b><?php echo htmlspecialchars($_SESSION['username']) ?></b>
-          </li>
-          <li class="nav-item">
-            
+          <?php if (!empty($_SESSION['user_id'])) { ?>
+            <li class="navbar-text">
+              <b><?php echo htmlspecialchars($_SESSION['username']) ?></b>
+            </li>
+            <li class="nav-item">
+
               <a class="nav-link" href="/logout.php">Log out</a>
             <?php } else { ?>
             <li class="nav-item">
               <a class="nav-link" href="/my_scrapbooks.php">Sign in</a>
             <?php } ?>
-          </li>
+            </li>
         </ul>
         <form class="form-inline mt-2 mt-md-0" method="get" action="./search.php">
           <input name="tag" class="form-control mr-sm-2" type="text" placeholder="Search for tags" aria-label="Search">
@@ -68,6 +68,7 @@ function get_header($title = 'Link Scrapbook')
     function get_footer()
     {
       ?>
+      
     </div>
   </body>
 
