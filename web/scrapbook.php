@@ -70,16 +70,35 @@ if (empty($scraps) && $is_own_scrapbook) {
 } else {
   echo '<div class="row">';
   foreach ($scraps as $scrap) {
+    $result = pg_prepare($dbConnection, "tags" . $scrap['id'], 'SELECT "Tag".* FROM "Tag", "HasTag" WHERE "HasTag".tag_id = "Tag".id AND "HasTag".scrap_id = $1');
+
+    $result = pg_execute($dbConnection, "tags" . $scrap['id'], array($scrap['id']));
+
+    $tags = pg_fetch_all($result);
+
+    $tag_links = '';
+
+    if (!empty($tags)) {
+      $tag_links = '<p>';
+
+      foreach($tags as $tag) {
+        $tag_links .= '<span class="badge badge-primary"><a href="/search.php?tag=' . htmlspecialchars($tag['name']) . '">' . $tag['name'] . '</a></span> ';
+      }
+
+      $tag_links .= '</p>';
+    }
+
     echo '<div class="col-md-4">
       <div class="card mb-4 shadow-sm">';
     if (empty($scrap['image_url'])) {
-      echo '<svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>' . $scrap['title'] . '</title><rect width="100%" height="100%" fill="#55595c"/><text x="5%" y="50%" fill="#eceeef" dy=".3em">' . $scrap['title'] . '</text></svg>';
+      echo '<svg class="bd-placeholder-img card-img-top" width="100%" hleight="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>' . $scrap['title'] . '</title><rect width="100%" height="100%" fill="#55595c"/><text x="5%" y="50%" fill="#eceeef" dy=".3em">' . $scrap['title'] . '</text></svg>';
     } else {
       echo '<img src="' . filter_var($scrap['image_url'], FILTER_VALIDATE_URL, FILTER_FLAG_PATH_REQUIRED) . '" width="100% height="225" >';
     }
 
     echo '<div class="card-body">
         <h5 class="mb-0">' . htmlspecialchars($scrap['title']) . '</h5>
+        ' . $tag_links . '
         <p class="card-text">' . htmlspecialchars($scrap['notes']) . '</p>
         <div class="d-flex justify-content-between align-items-center">
           <div class="btn-group">
