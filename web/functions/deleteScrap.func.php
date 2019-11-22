@@ -12,7 +12,7 @@ $result = pg_prepare($dbConnection, "checkScrap", 'SELECT "Scrap".* FROM "Scrap"
 $result = pg_execute($dbConnection, "checkScrap", array($scrap_id, $user_id, $scrapbook_id));
 
 if ($result === false) {
-    header("Location: ../scrapbook.php?id=$scrapbook_id&delete=true");
+    header("Location: ../scrapbook.php?id=$scrapbook_id&delete=false");
     exit();
 }
 $rows = pg_num_rows($result);
@@ -30,6 +30,6 @@ if ($rows > 0) {
     exit();
 } else {
 
-    header("Location: ../scrapbook.php?id=$scrapbook_id&delete=true");
+    header("Location: ../scrapbook.php?id=$scrapbook_id&delete=false");
     exit();
 }
